@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HerancaPolimorfismo.Entities
 {
-    internal class Conta
+    internal abstract class Conta
     {
         public int Numero { get; private set; }
         public string Titular { get; private set; }

@@ -1,10 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using HerancaPolimorfismo.Entities;
+using System.Globalization;
 
 #region Testes de upcasting e downcasting
 
-Conta c = new Conta(1001, "Alex", 0.0);
+//Conta c = new Conta(1001, "Alex", 0.0);
 
 ContaEmpresarial ce = new ContaEmpresarial(1002, "Maria", 0.0, 500.0);
 
@@ -38,11 +39,32 @@ if(conta3 is ContaPoupanca)
 
 #endregion
 
-Conta c1 = new Conta(1001, "Alex", 500.00);
-Conta c2 = new ContaPoupanca(1002, "Anna", 500.00, 0.01);
+List<Conta> list = new List<Conta>();
 
-c1.Sacar(10.0);
-c2.Sacar(10.0);
+list.Add(new ContaPoupanca(1001, "Alex", 500.00, 0.01));
+list.Add(new ContaEmpresarial(1002, "Maria", 500.00, 400.00));
+list.Add(new ContaPoupanca(1003, "Bob", 500.00, 0.01));
+list.Add(new ContaEmpresarial(1004, "Anna", 500.00, 500.00));
 
-Console.WriteLine(c1.Saldo);
-Console.WriteLine(c2.Saldo);
+
+double soma = 0.0;
+
+foreach (Conta conta in list)
+{
+    soma += conta.Saldo;
+}
+
+Console.WriteLine("Saldo total: " + soma.ToString("F2", CultureInfo.InvariantCulture));
+
+foreach (Conta conta in list)
+{
+    conta.Sacar(10.0);
+}
+
+foreach (Conta conta in list)
+{
+    Console.WriteLine("Saldo atualizado por conta "
+        + conta.Numero
+        + ": "
+        + conta.Saldo.ToString("F2", CultureInfo.InvariantCulture));
+}
